@@ -4,7 +4,7 @@
 
 using namespace std;
 
-component::component(int iAmount, const char* sMaterial)
+component::component(long iAmount, const char* sMaterial)
 {
 	// cout << "in constructor component." << endl;
   count = iAmount;
@@ -13,19 +13,29 @@ component::component(int iAmount, const char* sMaterial)
 }
 
 char* component::getMaterial() { return material; }
-int component::getAmount() { return count; }
+long component::getAmount() { return count; }
 
 void component::printComponent()
 {
 	cout << count << " x " << material << endl;
 }
 
-void component::reduceAmount(int reduction)
+void component::reduceAmount(long reduction)
 {
 	count -= reduction;
 }
 
-void component::increaseAmount(int increase)
+void component::increaseAmount(long increase)
 {
 	count += increase;
+}
+
+void component::setAmount(long newAmount)
+{
+	count = newAmount;
+}
+
+component::~component()
+{
+	delete material;
 }

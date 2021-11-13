@@ -4,14 +4,16 @@
 class component
 {
   public:
-     component(int iAmount, const char* sMaterial); 
+     component(long iAmount, const char* sMaterial); 
 	 void printComponent();
 	 char* getMaterial();
-	 int getAmount();
-	 void reduceAmount(int reduction);
-	 void increaseAmount(int increase);
+	 long getAmount();
+	 void reduceAmount(long reduction);
+	 void increaseAmount(long increase);
+	 void setAmount(long newAmount);
+	 ~component();
   private:
-     int count;
+     long count;
 	 char *material;
 };
 
