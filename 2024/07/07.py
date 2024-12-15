@@ -84,12 +84,12 @@ print(str(ergebnis))
 # ergebnis = 0
 
 # print("Zeilen übrig: " + str(len(operators) - lcount))
-
+ergebnis = 0
 lcount2 = 0
 
 for operator in operators:
     # if operator.ok == 1: continue
-    print(str(lcount2 + 1) + " ------------")
+    print(str(lcount2 + 1) + "------------")
     if (debug): print("Has " + str(len(operator.factors)) + " items.")
     count = len(operator.factors)
     if (debug): print ("**** Ergebnis-Zahl: " + str(operator.result) + ", Iterationen: " + str(pow(3, count - 1)) + ", Liste: " + str(operator.factors))
