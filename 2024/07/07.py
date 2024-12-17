@@ -1,3 +1,4 @@
+from math import ceil, log
 import sys
 
 class Rule:
@@ -31,7 +32,7 @@ def digit(number, base, position):
             else:
                 poscount = poscount + 1
         if (debug): print("")
-        return -1
+        return 0
 
 factorstr = ""
 
@@ -39,6 +40,14 @@ operators = []
 factors = []
 
 debug = 0
+
+# for i in range(27):
+#     print(digit(i, 3, 2), end='')
+#     print(digit(i, 3, 1), end='')
+#     print(digit(i, 3, 0))
+# 
+# exit()
+
 
 with open(sys.argv[1]) as file:
     for line in file:
@@ -79,17 +88,18 @@ for operator in operators:
             lcount = lcount + 1
             break
 print(str(ergebnis))
-# ergebnis1 = ergebnis
+ergebnis1 = ergebnis
 
-# ergebnis = 0
+ergebnis = 0
 
-# print("Zeilen übrig: " + str(len(operators) - lcount))
+uebrig=len(operators) - lcount
+print("Zeilen übrig: " + str(len(operators) - lcount))
 ergebnis = 0
 lcount2 = 0
 
 for operator in operators:
-    # if operator.ok == 1: continue
-    print(str(lcount2 + 1) + "------------")
+    if operator.ok == 1: continue
+    print(str(lcount2 + 1) + " von " + str(uebrig), end='\r')
     if (debug): print("Has " + str(len(operator.factors)) + " items.")
     count = len(operator.factors)
     if (debug): print ("**** Ergebnis-Zahl: " + str(operator.result) + ", Iterationen: " + str(pow(3, count - 1)) + ", Liste: " + str(operator.factors))
@@ -101,21 +111,32 @@ for operator in operators:
             if (debug): print ("D " + str(digit(iteration, 3, part)) + " aus " + str(iteration) + "," + str(part))
             d = digit(iteration, 3, part)
             if d == 0:
-                if (debug): print("*")
-                localresult = localresult * operator.factors[part + 1]
-            if d == 1:
-                if (debug): print("+")
-                localresult = localresult + operator.factors[part + 1]
-            if d == 2:
                 if (debug): print("||")
                 localresult = int(str(localresult) + str(operator.factors[part + 1]))
+                # localresult = ((localresult * 10**ceil(log(operator.factors[part + 1],10)))+operator.factors[part + 1])
+                
+            if d == 1:
+                if (debug): print("*")
+                localresult = localresult * operator.factors[part + 1]
+                
+            if d == 2:
+                if (debug): print("+")
+                localresult = localresult + operator.factors[part + 1]
+
+            if d < 0 or d > 2:
+                print("ERROR")
+                exit()
+
             # print("    Ergebnis:" + str(localresult))
-            # if localresult > operator.result: continue
+            if localresult > operator.result: 
+                # print("!")
+                break
         if (debug): print(localresult)
         if localresult == operator.result:
             if (debug): print("    Ergebnis:" + str(localresult))
             ergebnis = ergebnis + localresult
             break
     lcount2 = lcount2 + 1
+print("")
 print(ergebnis)
-# print(ergebnis + ergebnis1)
+print(ergebnis + ergebnis1)
