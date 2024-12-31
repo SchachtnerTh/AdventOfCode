@@ -138,5 +138,5 @@ for operator in operators:
             break
     lcount2 = lcount2 + 1
 print("")
-print(ergebnis)
-print(ergebnis + ergebnis1)
+print("zusätzlich dazugekommen: " + str(ergebnis))
+print("Insgesamt: " + str(ergebnis + ergebnis1))
